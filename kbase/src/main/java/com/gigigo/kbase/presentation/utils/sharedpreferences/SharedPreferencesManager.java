@@ -1,6 +1,5 @@
 package com.gigigo.kbase.presentation.utils.sharedpreferences;
 
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -19,23 +18,17 @@ import java.util.ArrayList;
  */
 public class SharedPreferencesManager {
 
-    public class SharedKeys {
-        public static final String LOGIN_KEY = "login_key";
-        public static final String BRAND_LABEL_KEY = "brand_label_key";
-        public static final String CLIENT_PLATE_KEY = "client_plate_key";
-    }
-
     private static final String TAG = SharedPreferencesManager.class.getSimpleName();
 
-    private static SharedSettings sSharedSettings;
+    private static SharedSettings sharedSettings;
 
     public static SharedSettings init(@NonNull Context context) {
-        sSharedSettings = new SharedSettings();
-        return sSharedSettings.setContext(context);
+        sharedSettings = new SharedSettings();
+        return sharedSettings.setContext(context);
     }
 
     public static SharedSettings getSettings() {
-        return sSharedSettings;
+        return sharedSettings;
     }
 
     public static <T> T getSharedPreferenceAs(Class<T> classType, String key, T defaultValue) {

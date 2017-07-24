@@ -1,1 +1,1 @@
-include ':app', ':kretrofitmanager', ':kmvp', ':kbase'
+include ':app', ':kretrofitmanager', ':kmvp', ':kbase', ':kbranding'

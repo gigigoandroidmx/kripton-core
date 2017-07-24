@@ -1,0 +1,209 @@
+package com.gigigo.kbranding.binding;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.Toolbar;
+
+import com.bumptech.glide.Glide;
+import com.ftinc.scoop.Scoop;
+import com.gigigo.kbranding.BindItemDrawable;
+import com.gigigo.kbranding.BindItemImage;
+import com.gigigo.kbranding.BindItemView;
+import com.gigigo.kbranding.BrandingManager;
+import com.gigigo.kbranding.Toppings;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Juan Godínez Vera - 7/20/2017.
+ */
+public class ScoopBindingBase {
+
+    protected List<BindItemView> bindItemViews;
+    protected BrandLabel brandLabel;
+
+    public ScoopBindingBase(Builder builder) {
+        this.bindItemViews = builder.getBindItemViews();
+        this.brandLabel = builder.getBrandLabel();
+    }
+
+    public boolean hasBindItemsView() {
+        return bindItemViews != null && !bindItemViews.isEmpty();
+    }
+
+    public void update() {
+        if (hasBindItemsView() && brandLabel != null) {
+            Scoop scoop = Scoop.getInstance();
+
+            for(BindItemView item : this.bindItemViews) {
+                int colorInt = -1;
+
+                switch (item.getToppingId()) {
+                    case Toppings.COLOR_BASE:
+                        colorInt = Color.parseColor(brandLabel.getColorBase());
+                        break;
+                    case Toppings.COLOR_MAIN:
+                        colorInt = Color.parseColor(brandLabel.getColorMain());
+                        break;
+                    case Toppings.COLOR_SECONDARY:
+                        colorInt = Color.parseColor(brandLabel.getColorSecondary());
+                        break;
+                }
+
+                scoop.update(item.getToppingId(), colorInt);
+            }
+        }
+    }
+
+    public static class Builder {
+
+        protected BrandLabel brandLabel;
+
+        private Object object;
+        private Context context;
+        private Toolbar toolbar;
+        private List<BindItemView> bindItemViews = new ArrayList<>();
+        private List<BindItemImage> bindItemImages = new ArrayList<>();
+        private List<BindItemDrawable> bindItemDrawables = new ArrayList<>();
+
+        public Builder setObject(Object object) {
+            this.object = object;
+            return this;
+        }
+
+        public Builder setContext(Context context) {
+            this.context = context;
+            return this;
+        }
+
+        public Builder setToolbar(Toolbar toolbar) {
+            this.toolbar = toolbar;
+            return this;
+        }
+
+        public Builder add(BindItemView bindItem) {
+            this.bindItemViews.add(bindItem);
+            return this;
+        }
+
+        public Builder add(BindItemImage bindItem) {
+            this.bindItemImages.add(bindItem);
+            return this;
+        }
+
+        public Builder add(BindItemDrawable bindItem) {
+            this.bindItemDrawables.add(bindItem);
+            return this;
+        }
+
+        public List<BindItemView> getBindItemViews() {
+            return bindItemViews;
+        }
+
+        public BrandLabel getBrandLabel() {
+            return brandLabel;
+        }
+
+        public ScoopBindingBase build() {
+            if(null == context)
+                throw new NullPointerException("Context is required");
+
+            this.brandLabel = BrandingManager.getBrandLabel(null);
+
+            updateToolbar();
+            loadImages();
+            loadDrawables();
+
+            Scoop scoop = Scoop.getInstance();
+
+            if (this.bindItemViews != null && !this.bindItemViews.isEmpty()) {
+                for (BindItemView item : this.bindItemViews) {
+                    if(item.getView() != null) {
+                        scoop.bind(object,
+                                item.getToppingId(),
+                                item.getView(),
+                                item.getColorAdapter());
+                    }
+                }
+            }
+
+            return new ScoopBindingBase(this);
+        }
+
+        public boolean hasBindItemImages() {
+            return bindItemImages != null && !bindItemImages.isEmpty();
+        }
+
+        public boolean hasBindItemDrawables() {
+            return bindItemDrawables != null && !bindItemDrawables.isEmpty();
+        }
+
+        private void updateToolbar() {
+            if(toolbar != null && brandLabel != null) {
+
+                Scoop.getInstance().bind(this, Toppings.COLOR_BASE, toolbar);
+                Scoop.getInstance().update(Toppings.COLOR_BASE,
+                        Color.parseColor(brandLabel.getColorBase()));
+                Drawable drawable = toolbar.getNavigationIcon();
+                if(drawable != null) {
+                    drawable.setColorFilter(Color.parseColor(brandLabel.getColorSecondary()),
+                            PorterDuff.Mode.SRC_ATOP);
+                }
+            }
+        }
+
+        private void loadImages() {
+            if(hasBindItemImages() && context != null &&
+                    brandLabel != null ) {
+
+                for (BindItemImage item : bindItemImages) {
+                    if(item.getImageView() != null) {
+                        String logo = brandLabel.getLogoPrincipal();
+
+                        if(item.getToppingId() == Toppings.COLOR_SECONDARY) {
+                            logo = brandLabel.getLogoSecondary();
+                        }
+
+                        BrandingManager.getEndPoint();
+
+                        String urlLogo = String.format("%s/%s",
+                                BrandingManager.getEndPoint(),
+                                logo);
+
+                        Glide.with(context)
+                                .load(urlLogo)
+                                .into(item.getImageView());
+                    }
+                }
+            }
+        }
+
+        private void loadDrawables() {
+            if(hasBindItemDrawables() && brandLabel != null) {
+                for(BindItemDrawable item : this.bindItemDrawables) {
+                    if(item.getDrawable() != null) {
+                        int colorInt = -1;
+
+                        switch (item.getToppingId()) {
+                            case Toppings.COLOR_BASE:
+                                colorInt = Color.parseColor(brandLabel.getColorBase());
+                                break;
+                            case Toppings.COLOR_MAIN:
+                                colorInt = Color.parseColor(brandLabel.getColorMain());
+                                break;
+                            case Toppings.COLOR_SECONDARY:
+                                colorInt = Color.parseColor(brandLabel.getColorSecondary());
+                                break;
+                        }
+
+                        item.getDrawable().setColorFilter(colorInt, PorterDuff.Mode.SRC_ATOP);
+                    }
+                }
+            }
+        }
+
+    }
+}

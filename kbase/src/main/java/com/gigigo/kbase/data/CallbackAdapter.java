@@ -1,7 +1,5 @@
 package com.gigigo.kbase.data;
 
-import com.gigigo.kbase.data.IRepositoryCallback;
-import com.gigigo.kbase.data.IResponseError;
 import com.gigigo.kretrofitmanager.HttpErrorHandling;
 import com.gigigo.kretrofitmanager.ICallbackAdapter;
 import com.gigigo.kretrofitmanager.ResponseState;

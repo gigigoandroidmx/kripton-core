@@ -29,5 +29,7 @@ dependencies {
 
     compile parent.ext.libraries.design
     compile parent.ext.libraries.appcompat
-    compile parent.ext.libraries.recyclerview
+    compile parent.ext.libraries.scoops
+    compile parent.ext.libraries.glide
+    compile parent.ext.libraries.gsonconverter
 }

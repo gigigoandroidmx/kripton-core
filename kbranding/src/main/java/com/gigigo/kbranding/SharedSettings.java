@@ -1,13 +1,10 @@
-package com.gigigo.kbase.presentation.utils.sharedpreferences;
+package com.gigigo.kbranding;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * Defines a configuration class for accessing,modifying, serializing and deserializing preference data
@@ -72,35 +69,12 @@ public class SharedSettings {
         }
     }
 
-    public boolean deleteSetting(String key) {
-        try {
-            SharedPreferences.Editor editor = getSharedPreferences().edit();
-            return editor.remove(key).commit();
-        } catch (Exception ex) {
-            return false;
-        }
-    }
-
     public <T> T getSettingFromJson(String key, Class<T> typeClass, T otherwise) {
         T setting;
 
         if(settingExist(key)) {
             String jsonPreference = getSetting(key, null);
             setting = deserialize(jsonPreference, typeClass);
-        }
-        else {
-            setting = otherwise;
-        }
-
-        return setting;
-    }
-
-    public <T> ArrayList<T> getSettingFromJson(String key, Type type, ArrayList<T> otherwise) {
-        ArrayList<T> setting;
-
-        if(settingExist(key)) {
-            String jsonPreference = getSetting(key, null);
-            setting = deserialize(jsonPreference, type);
         }
         else {
             setting = otherwise;
@@ -131,18 +105,6 @@ public class SharedSettings {
 
         try {
             data = gson.fromJson(json, typeClass);
-        } catch (JsonSyntaxException e) {
-            data = null;
-        }
-
-        return data;
-    }
-
-    public <T> T deserialize(String json, Type type) {
-        T data;
-
-        try {
-            data = gson.fromJson(json, type);
         } catch (JsonSyntaxException e) {
             data = null;
         }
