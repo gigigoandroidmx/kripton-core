@@ -6,6 +6,7 @@ import com.gigigo.kretrofitmanager.ResponseState;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 
 import retrofit2.Response;
 
@@ -21,11 +22,12 @@ public class CallbackAdapter<T, R extends IResponseError>
         implements ICallbackAdapter<T> {
 
     private final IRepositoryCallback<T> callback;
-    private final R responseError;
 
-    public CallbackAdapter(IRepositoryCallback<T> callback, R responseError) {
+    protected Class<R> clazz;
+
+    public CallbackAdapter(IRepositoryCallback<T> callback) {
         this.callback = callback;
-        this.responseError = responseError;
+        this.clazz = (Class<R>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     @Override
@@ -64,8 +66,7 @@ public class CallbackAdapter<T, R extends IResponseError>
 
         try {
             Gson gson = new Gson();
-            Class<R> classOfT  = (Class<R>) this.responseError.getClass();
-            IResponseError responseError = gson.fromJson(response.errorBody().string(), classOfT);
+            IResponseError responseError = gson.fromJson(response.errorBody().string(), clazz);
             message = String.format("Error %1$d - %2$s", response.code(), responseError.getError());
         } catch (IOException e) {
             message = HttpErrorHandling.fromInt(code).toString();
