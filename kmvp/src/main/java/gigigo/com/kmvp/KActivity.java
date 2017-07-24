@@ -40,7 +40,7 @@ public abstract class KActivity
 
     @LayoutRes
     protected abstract int getLayoutResourceId();
-    protected abstract void onInitilize();
+    protected abstract void onInitialize();
     protected abstract void onBindView();
     protected abstract void onUnbindView();
 
@@ -59,7 +59,7 @@ public abstract class KActivity
         setIdFragmentContainer(getFragmentContainerId());
 
         onBindView();
-        onInitilize();
+        onInitialize();
 
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         getSupportFragmentManager().addOnBackStackChangedListener(this);

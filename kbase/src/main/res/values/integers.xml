@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default screen orientations: unspecified = -1, landscape = 0, portrait = 1 -->
+    <integer name="screen_orientation">1</integer>
+</resources>
