@@ -19,7 +19,7 @@ public class BrandingManager {
     private static BrandingSettings brandingSettings;
 
 
-    private static BrandingSettings init(@NonNull Context context) {
+    public static BrandingSettings init(@NonNull Context context) {
         sharedSettings = new SharedSettings();
         sharedSettings.setContext(context);
         sharedSettings.setSharedPreferencesName("BrandLabelSharedPreferences");

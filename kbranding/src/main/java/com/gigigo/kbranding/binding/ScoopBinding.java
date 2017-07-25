@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
@@ -20,12 +21,12 @@ import java.util.List;
 /**
  * @author Juan Godínez Vera - 7/20/2017.
  */
-public class ScoopBindingBase {
+public class ScoopBinding {
 
     protected List<BindItemView> bindItemViews;
     protected BrandLabel brandLabel;
 
-    public ScoopBindingBase(Builder builder) {
+    public ScoopBinding(Builder builder) {
         this.bindItemViews = builder.getBindItemViews();
         this.brandLabel = builder.getBrandLabel();
     }
@@ -107,7 +108,7 @@ public class ScoopBindingBase {
             return brandLabel;
         }
 
-        public ScoopBindingBase build() {
+        public ScoopBinding build() {
             if(null == context)
                 throw new NullPointerException("Context is required");
 
@@ -130,7 +131,7 @@ public class ScoopBindingBase {
                 }
             }
 
-            return new ScoopBindingBase(this);
+            return new ScoopBinding(this);
         }
 
         public boolean hasBindItemImages() {
@@ -205,5 +206,9 @@ public class ScoopBindingBase {
             }
         }
 
+    }
+
+    public static void unbind(@NonNull Object obj) {
+        Scoop.getInstance().unbind(obj);
     }
 }
