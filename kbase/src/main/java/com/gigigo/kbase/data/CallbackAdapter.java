@@ -10,7 +10,6 @@ import java.lang.reflect.ParameterizedType;
 
 import retrofit2.Response;
 
-
 /**
  * Adapter for handling responses from rest service
  *
@@ -22,12 +21,11 @@ public class CallbackAdapter<T, R extends IResponseError>
         implements ICallbackAdapter<T> {
 
     private final IRepositoryCallback<T> callback;
+    private final Class<R> clazz;
 
-    protected Class<R> clazz;
-
-    public CallbackAdapter(IRepositoryCallback<T> callback) {
+    public CallbackAdapter(IRepositoryCallback<T> callback, Class<R> clazz) {
         this.callback = callback;
-        this.clazz = (Class<R>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.clazz = clazz;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class CallbackAdapter<T, R extends IResponseError>
             Gson gson = new Gson();
             IResponseError responseError = gson.fromJson(response.errorBody().string(), clazz);
             message = String.format("Error %1$d - %2$s", response.code(), responseError.getError());
-        } catch (IOException e) {
+        } catch (Exception e) {
             message = HttpErrorHandling.fromInt(code).toString();
         }
 
