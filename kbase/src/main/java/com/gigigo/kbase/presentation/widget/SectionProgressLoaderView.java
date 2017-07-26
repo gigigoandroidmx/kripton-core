@@ -49,7 +49,8 @@ public class SectionProgressLoaderView
 
     private void initView(Context context) {
         View rootView = inflate(context, R.layout.progress_indicator_layout, null);
-
+        contentLoadingProgressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.contentloading_progressbar);
+        messageTextView = (TextView) rootView.findViewById(R.id.textview_content);
         addView(rootView);
 
         hide();
