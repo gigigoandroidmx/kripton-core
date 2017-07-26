@@ -39,6 +39,12 @@ public enum HttpErrorHandling {
         public String toString() {
             return "Method Not Allowed - The request method is known by the server but has been disabled and cannot be used.";
         }
+    },
+    HTTP_BAD_GATEWAY(502) {
+        @Override
+        public String toString() {
+            return "Bad Gateway - The server was acting as a gateway or proxy and received an invalid response from the upstream server.";
+        }
     };
 
     private final int value;
