@@ -58,6 +58,13 @@ public class SectionProgressLoaderView
 
     public void show(String message) {
         messageTextView.setText(message);
+
+        if (message != null && !message.isEmpty()) {
+            messageTextView.setVisibility(VISIBLE);
+        } else {
+            messageTextView.setVisibility(GONE);
+        }
+
         setVisibility(VISIBLE);
     }
 
