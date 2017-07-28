@@ -5,6 +5,9 @@ package com.gigigo.kbranding;
  */
 public class Toppings {
     public static final int COLOR_BASE = 0;
-    public static final int COLOR_SECONDARY = 1;
-    public static final int COLOR_MAIN = 2;
+    public static final int COLOR_MAIN = 1;
+    public static final int COLOR_SECONDARY = 2;
+
+    public static final int LOGO_MAIN = 3;
+    public static final int LOGO_SECONDARY = 4;
 }

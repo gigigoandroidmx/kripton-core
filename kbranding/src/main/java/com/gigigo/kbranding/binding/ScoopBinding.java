@@ -164,7 +164,7 @@ public class ScoopBinding {
                     if(item.getImageView() != null) {
                         String logo = brandLabel.getLogoPrincipal();
 
-                        if(item.getToppingId() == Toppings.COLOR_SECONDARY) {
+                        if(item.getToppingId() == Toppings.LOGO_SECONDARY) {
                             logo = brandLabel.getLogoSecondary();
                         }
 
