@@ -15,6 +15,7 @@
 
 package com.gigigo.kbase.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,8 +62,27 @@ public abstract class KInteractor
      *
      * @param parameters list of parameters
      */
-    @Override
     public void setParams(List<Object> parameters) {
+        if(parameters == null) return;
+
         this.parameters = parameters;
     }
+
+    /**
+     * Defines the method to sets the parameters to be invoked when the api so requires
+     *
+     * @param parameters array of parameters
+     */
+    public void setParams(Object ... parameters) {
+        if(parameters == null) return;
+
+        ArrayList<Object> arrayList = new ArrayList(parameters.length);
+
+        for(Object item : parameters) {
+            arrayList.add(item);
+        }
+
+        setParams(arrayList);
+    }
+
 }
