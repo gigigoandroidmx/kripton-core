@@ -89,6 +89,15 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
         }
     }
 
+    public void updateSectionProgresLoaderMessage(String message) {
+        if (sectionProgressLoader == null)
+            return;
+
+        if (sectionProgressLoader.isVisible()) {
+            sectionProgressLoader.updateMessage(message);
+        }
+    }
+
     public void hideProgressLoader() {
         if (sectionProgressLoader != null)
             sectionProgressLoader.hide();

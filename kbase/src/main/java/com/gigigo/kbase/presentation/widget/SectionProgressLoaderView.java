@@ -68,6 +68,11 @@ public class SectionProgressLoaderView
         setVisibility(VISIBLE);
     }
 
+    public void updateMessage(String message) {
+        if (messageTextView != null)
+            messageTextView.setText(message);
+    }
+
     public void hide() {
         setVisibility(GONE);
     }
