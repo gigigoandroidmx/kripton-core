@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -95,12 +96,12 @@ public class SharedSettings {
         return setting;
     }
 
-    public <T> ArrayList<T> getSettingFromJson(String key, Type type, ArrayList<T> otherwise) {
+    public <T> ArrayList<T> getSettingFromJson(String key, Type sourceType, ArrayList<T> otherwise) {
         ArrayList<T> setting;
 
         if(settingExist(key)) {
             String jsonPreference = getSetting(key, null);
-            setting = deserialize(jsonPreference, type);
+            setting = deserialize(jsonPreference, sourceType);
         }
         else {
             setting = otherwise;
@@ -114,11 +115,28 @@ public class SharedSettings {
         setSetting(key, json, replaceIfExist);
     }
 
+    public <T> void setSettingToJsonType(String key, T data, Type sourceType, boolean replaceIfExist) {
+        String json = serializeType(data, sourceType);
+        setSetting(key, json, replaceIfExist);
+    }
+
     public <T> String serialize(T data) {
         String json;
 
         try {
             json = gson.toJson(data);
+        } catch (JsonSyntaxException e) {
+            json = null;
+        }
+
+        return json;
+    }
+
+    public <T> String serializeType(T data, Type sourceType) {
+        String json;
+
+        try {
+            json = gson.toJson(data, sourceType);
         } catch (JsonSyntaxException e) {
             json = null;
         }
