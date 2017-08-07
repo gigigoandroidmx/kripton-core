@@ -1,6 +1,7 @@
-package com.gigigo.kbase.presentation.utils.collections;
+package gigigo.com.kmvp.collections;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,5 +26,17 @@ public class CollectionExtensions {
         }
 
         return list;
+    }
+
+    public static <T> T find(final Collection<T> collection, final IPredicate<T> predicate) {
+        if(null == collection || collection.isEmpty()) return null;
+
+        for (T item : collection){
+            if (predicate.apply(item)){
+                return item;
+            }
+        }
+
+        return null;
     }
 }

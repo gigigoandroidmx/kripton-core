@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package gigigo.com.kmvp;
+package gigigo.com.kmvp.collections;
 
 /**
  * Represents an interface that defines a set of criteria to determine whether the specified object meets those

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package gigigo.com.kmvp;
+package gigigo.com.kmvp.collections;
 
 /**
  * Defines an interface for manipulation operations on a collection of a specified type

@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import gigigo.com.kmvp.collections.IEnumerable;
+import gigigo.com.kmvp.collections.IPredicate;
+
 /**
  * Defines the adapter with base functionality
  *
