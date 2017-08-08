@@ -1,5 +1,6 @@
 package gigigo.com.kmvp;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 /**
@@ -13,4 +14,5 @@ public interface KNavigationFragmentListener {
     void addFragmentBackstack(Fragment fragment);
     void replaceFragment(Fragment fragment);
     void showActivity(Class type);
+    void showActivity(Class type, Bundle args);
 }

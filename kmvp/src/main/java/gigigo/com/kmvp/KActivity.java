@@ -153,6 +153,13 @@ public abstract class KActivity
             Intent mActivityIntent = new Intent(KActivity.this, type);
             startActivity(mActivityIntent);
         }
+
+        @Override
+        public void showActivity(Class type, Bundle args) {
+            Intent activityIntent = new Intent(KActivity.this, type);
+            activityIntent.putExtras(args);
+            startActivity(activityIntent);
+        }
     };
 
     /**
