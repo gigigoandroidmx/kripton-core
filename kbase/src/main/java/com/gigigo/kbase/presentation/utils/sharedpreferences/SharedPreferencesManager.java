@@ -58,6 +58,38 @@ public class SharedPreferencesManager {
         return false;
     }
 
+    public static <T> boolean setSharedPreferenceAsArrayList(String key,
+                                                    ArrayList<T> data,
+                                                    Type sourceType,
+                                                    boolean replaceIfExist) {
+        try {
+            if(getSettings() != null) {
+                getSettings().setSettingToJsonType(key, data, sourceType, replaceIfExist);
+                return true;
+            }
+        } catch (Exception exception) {
+            Log.e(TAG, "Set Shared Preference: " + exception.getMessage());
+            return false;
+        }
+
+        return false;
+    }
+
+    public static <T> ArrayList<T> getSharedPreferenceAsArrayList(String key,
+                                                         Type sourceType,
+                                                         ArrayList<T> defaultValue) {
+        try {
+            if(getSettings() != null) {
+                return getSettings().getSettingFromJson(key, sourceType, defaultValue);
+            }
+        } catch (Exception exception) {
+            Log.e(TAG, "Get Shared Preference: " + exception.getMessage());
+            return defaultValue;
+        }
+
+        return null;
+    }
+
     public static <T> boolean deleteSharedPreference(String key) {
         try {
             if(getSettings() != null) {
@@ -69,33 +101,5 @@ public class SharedPreferencesManager {
         }
 
         return false;
-    }
-
-    public static <T> boolean setSharedPreferenceAs(String key, ArrayList<T> data, boolean replaceIfExist) {
-        try {
-            if(getSettings() != null) {
-                getSettings().setSettingToJson(key, data, replaceIfExist);
-                return true;
-            }
-        } catch (Exception exception) {
-            Log.e(TAG, "Set Shared Preference: " + exception.getMessage());
-            return false;
-        }
-
-        return false;
-    }
-
-    public static <T> ArrayList<T> getSharedPreferenceAs(String key, ArrayList<T> defaultValue) {
-        try {
-            if(getSettings() != null) {
-                Type type = new TypeToken<ArrayList<T>>() {}.getType();
-                return getSettings().getSettingFromJson(key, type, defaultValue);
-            }
-        } catch (Exception exception) {
-            Log.e(TAG, "Get Shared Preference: " + exception.getMessage());
-            return defaultValue;
-        }
-
-        return null;
     }
 }

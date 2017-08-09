@@ -43,7 +43,6 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
         }
     }
 
-
     @Override
     protected void onBindView(View root) {
         unbinder = ButterKnife.bind(this, root);
