@@ -12,17 +12,19 @@ import android.support.v4.app.FragmentTransaction;
 
 public class KNavigationManager {
 
-    private static FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
+    private int idContainer;
 
-    public KNavigationManager(@NonNull FragmentManager fragmentManager) {
-        KNavigationManager.fragmentManager = fragmentManager;
+    public KNavigationManager(@NonNull FragmentManager fragmentManager, @NonNull int idContainer) {
+        this.fragmentManager = fragmentManager;
+        this.idContainer = idContainer;
     }
 
-    public void replaceFragment(Fragment fragment, int idContainer) {
-        fragmentManager.beginTransaction().replace(idContainer,fragment).commit();
+    public void replaceFragment(Fragment fragment) {
+        fragmentManager.beginTransaction().replace(idContainer, fragment).commit();
     }
 
-    public void addFragmentToBackStack(@NonNull Fragment fragment, int idContainer) {
+    public void addFragmentToBackStack(@NonNull Fragment fragment) {
         if(fragment != null && idContainer > 0) {
             if (!exitsFragment(fragment.getClass().getName())) {
                 FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -49,10 +51,10 @@ public class KNavigationManager {
         }
     }
 
-    public void openAsRoot(Fragment fragment, int idContainer) {
+    public void openAsRoot(Fragment fragment) {
         if(fragment != null && idContainer > 0) {
             popAllFragment();
-            replaceFragment(fragment, idContainer);
+            replaceFragment(fragment);
         }
     }
 

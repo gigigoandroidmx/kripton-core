@@ -65,7 +65,17 @@ public abstract class KFragment<V extends IView, P extends IPresenter<V>> extend
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        onInitialize();
+        if (getBaseActivity() != null){
+            navigationFragmentListener = getBaseActivity().getNavigationFragmentListener();
+        }
+
+        if(presenter == null)
+            presenter = createPresenter();
+
+        if(!(this instanceof IView))
+            throw new ClassCastException("The fragment must implement IView. This is required by the presenter.");
+
+        presenter.attachView((V) this);
     }
 
     @Override
@@ -81,17 +91,7 @@ public abstract class KFragment<V extends IView, P extends IPresenter<V>> extend
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (getBaseActivity() != null){
-            navigationFragmentListener = getBaseActivity().getNavigationFragmentListener();
-        }
-
-        if(presenter == null)
-            presenter = createPresenter();
-
-        if(!(this instanceof IView))
-            throw new ClassCastException("The fragment must implement IView. This is required by the presenter.");
-
-        presenter.attachView((V) this);
+        onInitialize();
     }
 
     // -------------------------------------------------------

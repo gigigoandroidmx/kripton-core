@@ -140,12 +140,12 @@ public abstract class KActivity
     private KNavigationFragmentListener navigationFragmentListener = new KNavigationFragmentListener() {
         @Override
         public void addFragmentBackstack(Fragment fragment) {
-            mNavigationManager.addFragmentToBackStack(fragment, idFragmentContainer);
+            mNavigationManager.addFragmentToBackStack(fragment);
         }
 
         @Override
         public void replaceFragment(Fragment fragment) {
-            mNavigationManager.replaceFragment(fragment, idFragmentContainer);
+            mNavigationManager.replaceFragment(fragment);
         }
 
         @Override
