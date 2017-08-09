@@ -28,7 +28,7 @@ import android.view.inputmethod.InputMethodManager;
  */
 public abstract class KActivity
         extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -40,11 +40,15 @@ public abstract class KActivity
 
     @LayoutRes
     protected abstract int getLayoutResourceId();
+
     protected abstract void onInitialize();
+
     protected abstract void onBindView();
+
     protected abstract void onUnbindView();
 
     protected abstract void initToolbar();
+
     protected abstract int getFragmentContainerId();
 
     //region Handling the Activity Lifecycle
@@ -61,7 +65,7 @@ public abstract class KActivity
         onBindView();
         onInitialize();
 
-        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
@@ -91,18 +95,18 @@ public abstract class KActivity
 
     @Override
     public void onBackStackChanged() {
-        if (getSupportActionBar() != null){
-            if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+        if (getSupportActionBar() != null) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            }else {
+            } else {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 toggle.syncState();
             }
         }
     }
 
-    public void closeDrawer(){
-        if (drawer != null){
+    public void closeDrawer() {
+        if (drawer != null) {
             drawer.closeDrawer(GravityCompat.START);
         }
     }
@@ -112,7 +116,7 @@ public abstract class KActivity
             inputMethodManager.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
     }
 
-    public void initDrawerToggle (DrawerLayout drawerLayout, NavigationView navigationView){
+    public void initDrawerToggle(DrawerLayout drawerLayout, NavigationView navigationView) {
         mNavigationView = navigationView;
         mNavigationView.setNavigationItemSelectedListener(this);
 
@@ -124,9 +128,9 @@ public abstract class KActivity
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     getSupportFragmentManager().popBackStack();
-                }else {
+                } else {
                     drawer.openDrawer(GravityCompat.START);
                 }
             }
@@ -135,7 +139,7 @@ public abstract class KActivity
 
     /**
      * Navigation listener methods
-     * **/
+     **/
 
     private KNavigationFragmentListener navigationFragmentListener = new KNavigationFragmentListener() {
         @Override
@@ -164,7 +168,7 @@ public abstract class KActivity
 
     /**
      * Getter and Setter Methods
-     * **/
+     **/
 
     public KNavigationManager getNavigationManager() {
         return mNavigationManager;
@@ -178,12 +182,12 @@ public abstract class KActivity
         return idFragmentContainer;
     }
 
-    public void setToolbar(Toolbar toolbar){
+    public void setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
         setSupportActionBar(this.toolbar);
     }
 
-    public Toolbar getToolbar(){
+    public Toolbar getToolbar() {
         return toolbar;
     }
 
@@ -207,7 +211,7 @@ public abstract class KActivity
         this.toggle = toggle;
     }
 
-    public void setNavigationView(NavigationView navigationView){
+    public void setNavigationView(NavigationView navigationView) {
         this.mNavigationView = navigationView;
         mNavigationView.setNavigationItemSelectedListener(this);
     }
