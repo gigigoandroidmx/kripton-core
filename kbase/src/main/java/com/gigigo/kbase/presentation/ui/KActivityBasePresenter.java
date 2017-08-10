@@ -19,6 +19,10 @@ public abstract class KActivityBasePresenter<V extends IView, P extends IPresent
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = createPresenter();
+
+        if(presenter == null)
+            throw new NullPointerException("The presenter must not be null.");
+
         presenter.attachView((V) this);
     }
 

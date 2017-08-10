@@ -72,6 +72,9 @@ public abstract class KFragment<V extends IView, P extends IPresenter<V>> extend
         if(presenter == null)
             presenter = createPresenter();
 
+        if(presenter == null)
+            throw new NullPointerException("The presenter must not be null.");
+
         if(!(this instanceof IView))
             throw new ClassCastException("The fragment must implement IView. This is required by the presenter.");
 
