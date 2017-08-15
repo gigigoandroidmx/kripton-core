@@ -78,10 +78,15 @@ public class KNavigationManager {
     }
 
     public boolean exitsFragment(String name) {
-        for (Fragment fragment : fragmentManager.getFragments()) {
-            if (fragment != null && fragment.isAdded() && fragment.getClass().getName().equals(name)) {
-                return true;
+
+        if(fragmentManager.getFragments() != null){
+
+            for (Fragment fragment : fragmentManager.getFragments()) {
+                if (fragment != null && fragment.isAdded() && fragment.getClass().getName().equals(name)) {
+                    return true;
+                }
             }
+
         }
 
         return false;
