@@ -100,7 +100,8 @@ public abstract class KActivity
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             } else {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                toggle.syncState();
+                if(toggle != null)
+                    toggle.syncState();
             }
         }
     }
