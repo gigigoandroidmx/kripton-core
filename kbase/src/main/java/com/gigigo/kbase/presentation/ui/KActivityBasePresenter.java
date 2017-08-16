@@ -16,6 +16,18 @@ public abstract class KActivityBasePresenter<V extends IView, P extends IPresent
     protected abstract P createPresenter();
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.onBusRegister();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.onBusUnregister();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = createPresenter();
