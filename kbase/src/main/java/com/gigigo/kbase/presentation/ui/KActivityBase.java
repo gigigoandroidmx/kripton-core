@@ -2,6 +2,7 @@ package com.gigigo.kbase.presentation.ui;
 
 import android.content.pm.ActivityInfo;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gigigo.kbase.R;
 
 import butterknife.ButterKnife;
@@ -14,6 +15,7 @@ import gigigo.com.kmvp.KActivity;
 public abstract class KActivityBase
         extends KActivity {
 
+    public MaterialDialog lockScreenProgressDialog;
     private Unbinder unbinder;
     protected abstract void initializeBrandLabel();
     protected abstract void unbindBrandLabel();
@@ -34,10 +36,26 @@ public abstract class KActivityBase
                 break;
         }
 
+        lockScreenProgressDialog = new MaterialDialog.Builder(this)
+                .cancelable(false)
+                .progress(true, 0)
+                .progressIndeterminateStyle(false)
+                .build();
+
         setRequestedOrientation(screenOrientation);
 
         initToolbar();
         initializeBrandLabel();
+    }
+
+    public void showLockScreenProgressDialog(boolean active) {
+        if(null == lockScreenProgressDialog) return;
+
+        if(active && !lockScreenProgressDialog.isShowing()) {
+            lockScreenProgressDialog.show();
+        } else {
+            lockScreenProgressDialog.dismiss();
+        }
     }
 
     @Override
