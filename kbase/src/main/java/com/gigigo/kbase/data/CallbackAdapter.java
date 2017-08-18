@@ -65,7 +65,8 @@ public class CallbackAdapter<T, R extends IResponseError>
         try {
             Gson gson = new Gson();
             IResponseError responseError = gson.fromJson(response.errorBody().string(), clazz);
-            message = String.format("Error %1$d - %2$s", response.code(), responseError.getError());
+//            message = String.format("Error %1$d - %2$s", response.code(), responseError.getError());
+            message = String.valueOf(responseError.getError());
         } catch (Exception e) {
             message = HttpErrorHandling.fromInt(code).toString();
         }
