@@ -33,4 +33,13 @@ public class FormatExtensions {
             return value;
         }
     }
+
+    public Date toDate(String value, String format) {
+        try {
+            Date date = new SimpleDateFormat(format).parse(value);
+            return date;
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 }
