@@ -21,8 +21,8 @@ public abstract class KSimpleFragmentBase
     protected IFragmentListener fragmentListener;
 
     private Unbinder unbinder;
-    protected abstract void initializeBrandLabel();
-    protected abstract void unbindBrandLabel();
+    protected void initializeBrandLabel(){};
+    protected void unbindBrandLabel(){};
 
     @Nullable
     SectionProgressLoaderView sectionProgressLoader;
