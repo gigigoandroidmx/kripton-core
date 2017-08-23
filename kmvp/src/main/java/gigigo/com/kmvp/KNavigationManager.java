@@ -21,7 +21,7 @@ public class KNavigationManager {
     }
 
     public void replaceFragment(Fragment fragment) {
-        fragmentManager.beginTransaction().replace(idContainer, fragment).commit();
+        fragmentManager.beginTransaction().replace(idContainer, fragment, fragment.getClass().getName()).commit();
     }
 
     public void addFragmentToBackStack(@NonNull Fragment fragment) {
