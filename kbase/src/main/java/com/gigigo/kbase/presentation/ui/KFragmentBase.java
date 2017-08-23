@@ -29,8 +29,8 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     private Unbinder unbinder;
     protected MaterialDialog lockScreenProgressDialog;
     protected IFragmentListener fragmentListener;
-    protected abstract void initializeBrandLabel();
-    protected abstract void unbindBrandLabel();
+    protected void initializeBrandLabel(){};
+    protected void unbindBrandLabel(){};
 
     @Nullable
     SectionProgressLoaderView sectionProgressLoader;

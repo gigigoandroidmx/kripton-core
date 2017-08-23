@@ -17,8 +17,8 @@ public abstract class KActivityBase
 
     public MaterialDialog lockScreenProgressDialog;
     private Unbinder unbinder;
-    protected abstract void initializeBrandLabel();
-    protected abstract void unbindBrandLabel();
+    protected void initializeBrandLabel(){};
+    protected void unbindBrandLabel(){};
 
     @Override
     protected void onInitialize() {
