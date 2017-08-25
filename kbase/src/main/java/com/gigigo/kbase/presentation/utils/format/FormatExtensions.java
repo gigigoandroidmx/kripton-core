@@ -1,5 +1,6 @@
 package com.gigigo.kbase.presentation.utils.format;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,21 @@ public class FormatExtensions {
     public String toCurrencyString(Object value) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
         return numberFormat.format(value);
+    }
+
+    /**
+     *
+     * @param currency en fotmato $0.00
+     * @return
+     */
+    public double toDoubleCurrencyString(String currency) {
+        String cleanString = currency.replaceAll("[$,.]", "");
+
+        BigDecimal parsed = new BigDecimal(cleanString)
+                .setScale(2, BigDecimal.ROUND_FLOOR)
+                .divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR);
+
+        return parsed.doubleValue();
     }
 
     public String toDateString(String value) {
