@@ -24,7 +24,28 @@ public class KNavigationManager {
         fragmentManager.beginTransaction().replace(idContainer, fragment, fragment.getClass().getName()).commit();
     }
 
+    public void addFragment(@NonNull Fragment fragment) {
+        if(fragment != null && idContainer > 0) {
+            if (!exitsFragment(fragment.getClass().getName())) {
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.add(idContainer, fragment);
+                ft.commit();
+            }
+        }
+    }
+
     public void addFragmentToBackStack(@NonNull Fragment fragment) {
+        if(fragment != null && idContainer > 0) {
+            if (!exitsFragment(fragment.getClass().getName())) {
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.add(idContainer, fragment);
+                ft.addToBackStack(fragment.getClass().getName());
+                ft.commit();
+            }
+        }
+    }
+
+    public void replaceFragmentToBackStack(@NonNull Fragment fragment) {
         if(fragment != null && idContainer > 0) {
             if (!exitsFragment(fragment.getClass().getName())) {
                 FragmentTransaction ft = fragmentManager.beginTransaction();
