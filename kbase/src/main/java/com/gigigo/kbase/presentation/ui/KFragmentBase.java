@@ -121,11 +121,12 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
 
         if(this.presenter != null) {
             presenter.onBusUnregister();
         }
     }
+
 }
