@@ -41,11 +41,21 @@ public abstract class KSimpleFragment
     protected abstract void onInitialize();
     protected abstract void onBindView(View root);
     protected abstract void onUnbindView();
+    protected void onUnboxFragmentExtras(Bundle arguments) {}
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            onUnboxFragmentExtras(getArguments());
+        }
     }
 
     @Nullable

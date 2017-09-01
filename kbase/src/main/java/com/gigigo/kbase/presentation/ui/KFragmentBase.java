@@ -1,6 +1,7 @@
 package com.gigigo.kbase.presentation.ui;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -29,8 +30,9 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     private Unbinder unbinder;
     protected MaterialDialog lockScreenProgressDialog;
     protected IFragmentListener fragmentListener;
-    protected void initializeBrandLabel(){};
-    protected void unbindBrandLabel(){};
+    protected void initializeBrandLabel(){}
+    protected void unbindBrandLabel(){}
+    protected void onUnboxFragmentExtras(Bundle arguments) {}
 
     @Nullable
     SectionProgressLoaderView sectionProgressLoader;
@@ -40,6 +42,15 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
         super.onAttach(context);
         if (this.context instanceof IFragmentListener) {
             fragmentListener = (IFragmentListener) context;
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            onUnboxFragmentExtras(getArguments());
         }
     }
 
