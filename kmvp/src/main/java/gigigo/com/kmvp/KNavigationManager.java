@@ -98,6 +98,14 @@ public class KNavigationManager {
         }
     }
 
+    public Fragment getFragmentByTag(String fragmentTag) {
+        if (fragmentManager != null) {
+            return fragmentManager.findFragmentByTag(fragmentTag);
+        }
+
+        return null;
+    }
+
     public boolean exitsFragment(String name) {
 
         if(fragmentManager.getFragments() != null){
