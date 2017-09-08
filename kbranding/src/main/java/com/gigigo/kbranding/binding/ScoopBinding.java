@@ -4,8 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
 import com.ftinc.scoop.Scoop;
@@ -113,6 +117,7 @@ public class ScoopBinding {
                 throw new NullPointerException("Context is required");
 
             this.brandLabel = BrandingManager.getBrandLabel(null);
+            setStatusBarColor();
 
             updateToolbar();
             loadImages();
@@ -132,6 +137,19 @@ public class ScoopBinding {
             }
 
             return new ScoopBinding(this);
+        }
+
+        private void setStatusBarColor() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if(object instanceof AppCompatActivity && brandLabel != null) {
+                    Window window = ((AppCompatActivity)object).getWindow();
+                    if(window != null) {
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        window.setStatusBarColor(Color.parseColor(brandLabel.getColorBase()));
+                    }
+                }
+            }
         }
 
         public boolean hasBindItemImages() {
