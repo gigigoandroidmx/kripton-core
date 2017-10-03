@@ -152,6 +152,11 @@ public abstract class KActivity
         public void replaceFragment(Fragment fragment) {
             mNavigationManager.replaceFragment(fragment);
         }
+        @Override
+        public void replaceFragmentBackstack(Fragment fragment) {
+            mNavigationManager.replaceFragmentToBackStack(fragment);
+        }
+
 
         @Override
         public void showActivity(Class type) {
@@ -164,6 +169,19 @@ public abstract class KActivity
             Intent activityIntent = new Intent(KActivity.this, type);
             activityIntent.putExtras(args);
             startActivity(activityIntent);
+        }
+        @Override
+        public void showActivityWithFlags(Class type, Bundle args, int[] flags) {
+            Intent activityIntent = new Intent(KActivity.this, type);
+            if(args != null)
+                activityIntent.putExtras(args);{
+
+            }
+            for(int flag : flags){
+                activityIntent.addFlags(flag);
+            }
+            startActivity(activityIntent);
+            KActivity.this.finish();
         }
     };
 
