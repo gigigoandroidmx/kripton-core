@@ -1,6 +1,7 @@
 package com.gigigo.kbase.presentation.utils.format;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class FormatExtensions {
 
     public String toCurrencyString(Object value) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+
         return numberFormat.format(value);
     }
 

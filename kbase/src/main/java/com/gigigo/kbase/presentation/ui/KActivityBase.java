@@ -22,7 +22,7 @@ public abstract class KActivityBase
 
     @Override
     protected void onInitialize() {
-        int orientationResourceValue = getResources().getInteger(R.integer.screen_orientation);
+        /*int orientationResourceValue = getResources().getInteger(R.integer.screen_orientation);
         int screenOrientation;
         switch (orientationResourceValue) {
             case 0:
@@ -34,7 +34,7 @@ public abstract class KActivityBase
             default:
                 screenOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
                 break;
-        }
+        }*/
 
         lockScreenProgressDialog = new MaterialDialog.Builder(this)
                 .cancelable(false)
@@ -42,7 +42,7 @@ public abstract class KActivityBase
                 .progressIndeterminateStyle(false)
                 .build();
 
-        setRequestedOrientation(screenOrientation);
+        /*setRequestedOrientation(screenOrientation);*/
 
         initToolbar();
         initializeBrandLabel();
