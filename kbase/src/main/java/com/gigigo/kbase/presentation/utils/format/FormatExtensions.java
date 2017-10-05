@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author Juan Godínez Vera - 7/19/2017.
@@ -22,8 +23,10 @@ public class FormatExtensions {
     }
 
     public String toCurrencyString(Object value) {
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-        return numberFormat.format(value);
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        String formatValue = numberFormat.format(value);
+
+        return formatValue;
     }
 
     /**
