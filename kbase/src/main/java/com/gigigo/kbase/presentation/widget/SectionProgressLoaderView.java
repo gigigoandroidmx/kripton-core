@@ -73,6 +73,10 @@ public class SectionProgressLoaderView
             messageTextView.setText(message);
     }
 
+    public void setMessateTextSize(float size) {
+        messageTextView.setTextSize(size);
+    }
+
     public void hide() {
         setVisibility(GONE);
     }

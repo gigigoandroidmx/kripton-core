@@ -3,6 +3,7 @@ package com.gigigo.kbase.presentation.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -119,6 +120,12 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
         }
 
         return null;
+    }
+
+    public void setSectionProgressLoaderTextSize(float spSize) {
+        float pixelSize = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP, spSize, getResources().getDisplayMetrics());
+        sectionProgressLoader.setMessateTextSize(pixelSize);
     }
 
     @Override
