@@ -10,11 +10,6 @@ import retrofit2.Retrofit;
  * @author Juan Godínez Vera - 5/10/2017.
  */
 public class ServiceClient {
-
-    private static final int CONNECT_TIMEOUT = 30;
-    private static final int WRITE_TIMEOUT = 30;
-    private static final int READ_TIMEOUT = 30;
-
     private static ServiceClientSettings serviceClientSettings;
 
     public static ServiceClientSettings init() {
@@ -27,18 +22,23 @@ public class ServiceClient {
     }
 
     public static <T> T createService(Class<T> classType) {
-        return createService(classType, 0);
+        return createService(classType, 0, ServiceTimeoutSettings.DEFAULT());
     }
 
     public static <T> T createService(Class<T> classType, int endpointIndex) {
+        return createService(classType, endpointIndex, ServiceTimeoutSettings.DEFAULT());
+    }
+
+    public static <T> T createService(Class<T> classType, int endpointIndex,
+                                      ServiceTimeoutSettings serviceTimeoutSettings) {
         String endpoint = ServiceClient.getSettings()
                 .getEndpoint(endpointIndex);
 
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
-        okHttpBuilder.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS);
+        okHttpBuilder.connectTimeout(serviceTimeoutSettings.getConnectTimeout(), TimeUnit.SECONDS)
+                .writeTimeout(serviceTimeoutSettings.getWriteTimeout(), TimeUnit.SECONDS)
+                .readTimeout(serviceTimeoutSettings.getReadTimeout(), TimeUnit.SECONDS);
 
         if(ServiceClient.getSettings().getLoggingInterceptor() != null) {
             okHttpBuilder.interceptors().add(ServiceClient.getSettings().getLoggingInterceptor() );
