@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = rootProject.ext.group
+version = rootProject.ext.version
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -8,7 +12,6 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 1
         versionName "1.0"
     }
     buildTypes {
@@ -17,19 +20,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile(rootProject.ext.testing.espressoCore, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile parent.ext.testing.junit
+    testCompile rootProject.ext.testing.junit
 
-    compile parent.ext.libraries.design
-    compile parent.ext.libraries.appcompat
-    compile parent.ext.libraries.scoops
-    compile parent.ext.libraries.glide
-    compile parent.ext.libraries.gsonconverter
+    compile rootProject.ext.libraries.design
+    compile rootProject.ext.libraries.appcompat
+    compile rootProject.ext.libraries.scoops
+    compile rootProject.ext.libraries.glide
+    compile rootProject.ext.libraries.gsonconverter
 }
