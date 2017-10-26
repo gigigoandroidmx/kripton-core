@@ -73,6 +73,24 @@ public class SharedSettings {
         }
     }
 
+    public Boolean getSettingBoolean(String key, Boolean otherwise) {
+        return getSharedPreferences().getBoolean(key, otherwise);
+    }
+
+    public void setSettingBoolean(String key, Boolean data, boolean replaceIfExist) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+
+        if(replaceIfExist) {
+            editor.putBoolean(key, data);
+            editor.commit();
+        } else {
+            if(!settingExist(key)) {
+                editor.putBoolean(key, data);
+                editor.commit();
+            }
+        }
+    }
+
     public boolean deleteSetting(String key) {
         try {
             SharedPreferences.Editor editor = getSharedPreferences().edit();
