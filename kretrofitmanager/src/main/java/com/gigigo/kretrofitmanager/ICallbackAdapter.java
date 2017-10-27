@@ -10,6 +10,5 @@ public interface ICallbackAdapter<T> {
     void onSuccess(T data);
     void onUnauthorized(Response<T> response);
     void onError(Throwable exception);
-    void onDataNotAvailable(ResponseState entryState);
-    ResponseState handleErrorResponse(Response<T> response);
+    void onDataNotAvailable(Response<T> response);
 }

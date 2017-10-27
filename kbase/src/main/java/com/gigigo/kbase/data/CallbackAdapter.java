@@ -48,13 +48,8 @@ public class CallbackAdapter<T, R extends IResponseError>
     }
 
     @Override
-    public void onDataNotAvailable(ResponseState entryState) {
-        callback.onError(entryState);
-    }
-
-    @Override
-    public ResponseState handleErrorResponse(Response<T> response) {
-        return getResponseState(response);
+    public void onDataNotAvailable(Response<T> response) {
+        callback.onError(getResponseState(response));
     }
 
     private ResponseState getResponseState(Response<T> response) {
