@@ -11,6 +11,7 @@ public class ResponseState
         extends Throwable {
 
     private int code;
+    private Object object;
 
     public ResponseState(String message) {
         super(message);
@@ -21,12 +22,26 @@ public class ResponseState
         this.setCode(code);
     }
 
+    public ResponseState(String message, int code, Object object) {
+        this(message);
+        this.setCode(code);
+        this.setObject(object);
+    }
+
     public int getCode() {
         return code;
     }
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public Object getObject() {
+        return object;
     }
 
     public String getEntryMessage() {
