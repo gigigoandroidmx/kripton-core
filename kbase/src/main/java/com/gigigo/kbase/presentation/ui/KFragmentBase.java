@@ -11,7 +11,6 @@ import com.gigigo.kbase.R;
 import com.gigigo.kbase.presentation.widget.ContentLoadingProgressBar;
 import com.gigigo.kbase.presentation.widget.SectionProgressLoaderView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import gigigo.com.kmvp.IPresenter;
@@ -31,9 +30,19 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     private Unbinder unbinder;
     protected MaterialDialog lockScreenProgressDialog;
     protected IFragmentListener fragmentListener;
-    protected void initializeBrandLabel(){}
-    protected void unbindBrandLabel(){}
-    protected void onUnboxFragmentExtras(Bundle arguments) {}
+
+    protected void initializeBrandLabel() {
+    }
+
+    protected void unbindBrandLabel() {
+    }
+
+    @Deprecated
+    protected void onUnboxFragmentExtras(Bundle arguments) {
+    }
+
+    protected void onRestoreFragmentExtras(Bundle arguments) {
+    }
 
     @Nullable
     SectionProgressLoaderView sectionProgressLoader;
@@ -53,6 +62,10 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
         if (getArguments() != null) {
             onUnboxFragmentExtras(getArguments());
         }
+
+        if (getArguments() != null) {
+            onRestoreFragmentExtras(getArguments());
+        }
     }
 
     @Override
@@ -64,7 +77,7 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     protected void onUnbindView() {
         unbindBrandLabel();
 
-        if(unbinder != null) {
+        if (unbinder != null) {
             unbinder.unbind();
         }
     }
@@ -82,9 +95,9 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     }
 
     public void showLockScreenProgressDialog(boolean active) {
-        if(null == lockScreenProgressDialog) return;
+        if (null == lockScreenProgressDialog) return;
 
-        if(active && !lockScreenProgressDialog.isShowing()) {
+        if (active && !lockScreenProgressDialog.isShowing()) {
             lockScreenProgressDialog.show();
         } else {
             lockScreenProgressDialog.dismiss();
@@ -132,9 +145,10 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     public void onResume() {
         super.onResume();
 
-        if(this.presenter != null) {
-            presenter.onBusRegister();
-
+        if (automaticBusConnection()) {
+            if (this.presenter != null) {
+                presenter.onBusRegister();
+            }
         }
     }
 
@@ -142,9 +156,14 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     public void onStop() {
         super.onStop();
 
-        if(this.presenter != null) {
-            presenter.onBusUnregister();
+        if (automaticBusConnection()) {
+            if (this.presenter != null) {
+                presenter.onBusUnregister();
+            }
         }
     }
 
+    protected boolean automaticBusConnection() {
+        return true;
+    }
 }
