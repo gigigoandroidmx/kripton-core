@@ -37,7 +37,6 @@ public abstract class KFragmentBase<V extends IView, P extends IPresenter<V>>
     protected void unbindBrandLabel() {
     }
 
-    @Deprecated
     protected void onUnboxFragmentExtras(Bundle arguments) {
     }
 

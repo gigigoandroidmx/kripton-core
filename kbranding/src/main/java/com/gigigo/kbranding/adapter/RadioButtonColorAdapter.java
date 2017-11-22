@@ -6,20 +6,18 @@ import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.v4.graphics.ColorUtils;
-import android.widget.Button;
+import android.widget.RadioButton;
 
 import com.ftinc.scoop.adapters.ColorAdapter;
 
 /**
- * @author Juan Godínez Vera - 7/4/2017.
+ * @author Omar Bacilio - 11/15/17.
  */
-public class ButtonColorAdapter
-        implements ColorAdapter<Button> {
+
+public class RadioButtonColorAdapter implements ColorAdapter<RadioButton> {
 
     @Override
-    public void applyColor(Button view, @ColorInt int color) {
+    public void applyColor(RadioButton view, int color) {
         if (view.getBackground() instanceof StateListDrawable) {
             StateListDrawable stateListDrawable = (StateListDrawable) view.getBackground();
             DrawableContainer.DrawableContainerState drawableContainerState =
@@ -27,15 +25,16 @@ public class ButtonColorAdapter
             Drawable[] children = drawableContainerState.getChildren();
 
             if (children != null) {
-                GradientDrawable state_enabled = (GradientDrawable) children[0];
-                GradientDrawable state_selected = (GradientDrawable) children[1];
-                GradientDrawable state_pressed = (GradientDrawable) children[2];
-                GradientDrawable state_default = (GradientDrawable) children[3];
+                GradientDrawable state_checked_and_pressed = (GradientDrawable) children[0];
+                GradientDrawable state_pressed = (GradientDrawable) children[1];
+                GradientDrawable state_selected = (GradientDrawable) children[2];
+                GradientDrawable state_normal = (GradientDrawable) children[3];
 
-                state_enabled.setColor(Color.parseColor("#bdbdbd"));
+                int grayColor = Color.parseColor("#bdbdbd");
+                state_checked_and_pressed.setColor(grayColor);
+                state_pressed.setColor(grayColor);
                 state_selected.setColor(color);
-                state_pressed.setColor(ColorUtils.setAlphaComponent(color, 125));
-                state_default.setColor(color);
+                state_normal.setColor(grayColor);
             }
         } else if (view.getBackground() instanceof GradientDrawable) {
             ((GradientDrawable) view.getBackground()).setColor(color);
@@ -43,7 +42,7 @@ public class ButtonColorAdapter
     }
 
     @Override
-    public int getColor(Button view) {
+    public int getColor(RadioButton view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (view.getBackgroundTintList() != null) {
                 return view.getBackgroundTintList().getDefaultColor();
