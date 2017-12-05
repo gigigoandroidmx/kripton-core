@@ -45,6 +45,26 @@ public class KNavigationManager {
         }
     }
 
+    public void addFragmentToBackStackPopIfExist(@NonNull Fragment fragment) {
+        if(fragment != null && idContainer > 0) {
+            if (!exitsFragmentRemove(fragment.getClass().getName())) {
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.add(idContainer, fragment);
+                ft.addToBackStack(fragment.getClass().getName());
+                ft.commit();
+            }
+        }
+    }
+
+    public void addFragmentToBackStackNoValidate(@NonNull Fragment fragment) {
+        if(fragment != null && idContainer > 0) {
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.add(idContainer, fragment);
+            ft.addToBackStack(fragment.getClass().getName());
+            ft.commit();
+        }
+    }
+
     public void replaceFragmentToBackStack(@NonNull Fragment fragment) {
         if(fragment != null && idContainer > 0) {
             if (!exitsFragment(fragment.getClass().getName())) {
@@ -118,6 +138,17 @@ public class KNavigationManager {
 
         }
 
+        return false;
+    }
+
+    public boolean exitsFragmentRemove(String name) {
+        if(fragmentManager.getFragments() != null){
+            for (Fragment fragment : fragmentManager.getFragments()) {
+                if (fragment != null && fragment.isAdded() && fragment.getClass().getName().equals(name)) {
+                    fragmentManager.beginTransaction().remove(fragment).commit();
+                }
+            }
+        }
         return false;
     }
 }
