@@ -2,10 +2,10 @@ package com.gigigo.kbase.presentation.utils.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * @since 1.0.0
  */
 public class SharedSettings {
+    private static final String TAG = SharedSettings.class.getName();
     private Context context;
     private SharedPreferences sharedPreferences;
 
@@ -48,7 +49,7 @@ public class SharedSettings {
         try {
             exist = getSharedPreferences().contains(key);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(exception));
             exist = false;
         }
 
@@ -97,7 +98,7 @@ public class SharedSettings {
             SharedPreferences.Editor editor = getSharedPreferences().edit();
             return editor.remove(key).commit();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(ex));
             return false;
         }
     }
@@ -146,7 +147,7 @@ public class SharedSettings {
         try {
             json = gson.toJson(data);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
             json = null;
         }
 
@@ -159,7 +160,7 @@ public class SharedSettings {
         try {
             json = gson.toJson(data, sourceType);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
             json = null;
         }
 
@@ -172,7 +173,7 @@ public class SharedSettings {
         try {
             data = gson.fromJson(json, typeClass);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
             data = null;
         }
 
@@ -185,7 +186,7 @@ public class SharedSettings {
         try {
             data = gson.fromJson(json, type);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
             data = null;
         }
 
