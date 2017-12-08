@@ -39,6 +39,7 @@ public abstract class KFragment<V extends IView, P extends IPresenter<V>> extend
     protected P presenter;
     protected Context context;
     protected KNavigationFragmentListener navigationFragmentListener;
+    protected View mViewRoot;
 
     @LayoutRes
     protected abstract int getLayoutResourceId();
@@ -53,13 +54,18 @@ public abstract class KFragment<V extends IView, P extends IPresenter<V>> extend
         this.context = context;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(getLayoutResourceId(), container, false);
-        onBindView(root);
-        return root;
+        mViewRoot = inflater.inflate(getLayoutResourceId(), container, false);
+        onBindView(mViewRoot);
+        return mViewRoot;
     }
 
     @Override
@@ -79,11 +85,6 @@ public abstract class KFragment<V extends IView, P extends IPresenter<V>> extend
             throw new ClassCastException("The fragment must implement IView. This is required by the presenter.");
 
         presenter.attachView((V) this);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     //region Handling Lifecycle Fragment

@@ -48,6 +48,7 @@ public class SharedSettings {
         try {
             exist = getSharedPreferences().contains(key);
         } catch (Exception exception) {
+            exception.printStackTrace();
             exist = false;
         }
 
@@ -96,6 +97,7 @@ public class SharedSettings {
             SharedPreferences.Editor editor = getSharedPreferences().edit();
             return editor.remove(key).commit();
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
@@ -144,6 +146,7 @@ public class SharedSettings {
         try {
             json = gson.toJson(data);
         } catch (JsonSyntaxException e) {
+            e.printStackTrace();
             json = null;
         }
 
@@ -156,6 +159,7 @@ public class SharedSettings {
         try {
             json = gson.toJson(data, sourceType);
         } catch (JsonSyntaxException e) {
+            e.printStackTrace();
             json = null;
         }
 
@@ -168,6 +172,7 @@ public class SharedSettings {
         try {
             data = gson.fromJson(json, typeClass);
         } catch (JsonSyntaxException e) {
+            e.printStackTrace();
             data = null;
         }
 
@@ -180,6 +185,7 @@ public class SharedSettings {
         try {
             data = gson.fromJson(json, type);
         } catch (JsonSyntaxException e) {
+            e.printStackTrace();
             data = null;
         }
 
