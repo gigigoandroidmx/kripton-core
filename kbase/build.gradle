@@ -1,5 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = rootProject.ext.group
+version = rootProject.ext.version
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -17,27 +21,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile(rootProject.ext.testing.espressoCore, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile parent.ext.testing.junit
+    testCompile rootProject.ext.testing.junit
 
-    compile parent.ext.libraries.design
-    compile parent.ext.libraries.appcompat
+    compile rootProject.ext.libraries.design
+    compile rootProject.ext.libraries.appcompat
 
-    compile parent.ext.libraries.materialdialogs
+    compile rootProject.ext.libraries.materialdialogs
 
-    compile parent.ext.libraries.eventbus
-    compile parent.ext.libraries.retrofit
-    compile parent.ext.libraries.gsonconverter
-    compile parent.ext.modules.kretrofitmanager
-    compile parent.ext.modules.kmvp
+    compile rootProject.ext.libraries.eventbus
+    compile rootProject.ext.libraries.gsonconverter
+    compile rootProject.ext.modules.kretrofitmanager
+    compile rootProject.ext.modules.kmvp
 
-    compile parent.ext.libraries.butterknife
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile rootProject.ext.libraries.butterknife
+    annotationProcessor rootProject.ext.libraries.butterknifeCompiler
+}
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
 }

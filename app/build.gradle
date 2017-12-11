@@ -47,18 +47,21 @@ android {
     buildTypes {
         debug {
             debuggable true
-            //signingConfig signingConfigs.release
         }
         production {
             debuggable true
-            signingConfig signingConfigs.release
+            signingConfig null //signingConfigs.release
         }
         release {
             debuggable true
-            signingConfig signingConfigs.release
+            signingConfig null //signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     productFlavors.whenObjectAdded { flavor ->
@@ -130,4 +133,9 @@ dependencies {
     compile parent.ext.libraries.design
     compile parent.ext.libraries.appcompat
     compile parent.ext.libraries.recyclerview
+
+    compile rootProject.ext.modules.kretrofitmanager
+    compile rootProject.ext.modules.kmvp
+    compile rootProject.ext.modules.kbase
+    compile rootProject.ext.modules.kbranding
 }

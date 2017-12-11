@@ -1,5 +1,8 @@
 ext{
 
+    group = 'com.github.gigigoandroidmx.kripton-core'
+    version = '0.0.2-beta'
+
     // Android sdk version
     androidCompileSdkVersion = 25
     androidBuildToolsVersion = "25.0.3"
@@ -8,6 +11,7 @@ ext{
 
     //Dependency version
     junitVersion = '4.12'
+    espressoVersion = '2.2.2'
     supportVersion = '25.3.1'
     retrofitVersion = '2.2.0'
     gsonVersion = '2.1.0'
@@ -24,6 +28,7 @@ ext{
 
     //Packages
     junitPackage = 'junit'
+    espressoPackage = 'com.android.support.test.espresso'
     supportPackage = 'com.android.support'
     retrofitPackage = 'com.squareup.retrofit2'
     okhttpPackage = 'com.squareup.okhttp3'
@@ -48,6 +53,7 @@ ext{
             okhttp :                    buildDependency(okhttpPackage, 'logging-interceptor', okhttpVersion),
             logginginterceptor :        buildDependency(logginginterceptorPackage, 'LoggingInterceptor', logginginterceptorVersion),
             butterknife :               buildDependency(butterknifePackage, 'butterknife', butterknifeVersion),
+            butterknifeCompiler :       buildDependency(butterknifePackage, 'butterknife-compiler', butterknifeVersion),
             saripaar :                  buildDependency(saripaarPackage, 'android-saripaar', saripaarVersion),
             materialdialogs :           buildDependency(materialdialogsPackage, 'core', materialdialogsVersion),
             glide :                     buildDependency(glidePackage, 'glide', glideVersion),
@@ -61,12 +67,15 @@ ext{
     modules = [
             // E.G.
             kmvp :                      project(':kmvp'),
+            kbase :                     project(':kbase'),
+            kbranding :                 project(':kbranding'),
             kretrofitmanager :          project(':kretrofitmanager')
     ]
 
     //Testing
     testing = [
-            junit :                     buildDependency(junitPackage, 'junit', junitVersion)
+            junit :                     buildDependency(junitPackage, 'junit', junitVersion),
+            espressoCore :              buildDependency(espressoPackage, 'espresso-core', espressoVersion)
     ]
 }
 
