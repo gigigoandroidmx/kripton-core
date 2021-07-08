@@ -60,7 +60,7 @@ public class CallAdapter<T>
                     } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
                         callback.onUnauthorized(response);
                     } else {
-                        callback.onDataNotAvailable(callback.handleErrorResponse(response));
+                        callback.onDataNotAvailable(response);
                     }
                 } else {
                     callback.onDataEmpty();
